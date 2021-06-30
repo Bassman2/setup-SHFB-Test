@@ -1,0 +1,19 @@
+name: "Test"
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-2019
+    
+    steps:
+    - name: Install checkout
+      uses: actions/checkout@v2
+      
+    - name: Install SHFB
+      uses: Bassman2/setup-SHFB@v1
+      with:
+        version: v2021.4.9.0
+        
+    - name: Create Test Documentation
+      run: msbuild setup-SHFB-Test.sln /p:configuration="Release" /m /verbosity:minimal
